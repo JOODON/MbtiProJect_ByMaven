@@ -42,8 +42,8 @@ public class MemberController {
         }catch (IllegalStateException e){
             //중복 가입 예외가 발생할시에 메시지를 띄워줌!
             model.addAttribute("message",e.getMessage());
-
-            return "member/memberForm";
+            model.addAttribute("searchUrl", "/members/new");
+            return "message";
         }
         return "redirect:/";
     }
@@ -58,6 +58,6 @@ public class MemberController {
         model.addAttribute("message", "아이디 또는 비밀번호를 확인해주세요");
         model.addAttribute("searchUrl", "members/login");
 
-        return "member/loginForm";
+        return "message";
     }
 }

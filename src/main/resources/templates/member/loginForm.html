@@ -148,30 +148,28 @@
 
   <div id="login-form">
     <div id="login-container">
-      <form role="form" method="post" action="/members/login">
+      <form action="/members/login" role="form" method="post">
         <h1>로그인</h1>
         <div class="textBox">
           <label>
             <p id="idLabel">이메일</p>
             <div class="idBox">
               <i class="fa-solid fa-user"></i>
-              <input type="text" id="memberid" name="memberid" size="100" required
+              <input type="text" id="email" name="email" size="100" required
                      oninvalid="this.setCustomValidity('아이디를 입력해주세요.')" oninput="this.setCustomValidity('')">
             </div>
           </label>
         </div>
-
         <div class="textBox">
           <label>
             <p id="pwLabel">비밀번호</p>
             <div class="pwBox">
               <i class="fa-solid fa-lock"></i>
-              <input type="password" id="memberPassword" name="memberpassword" required
+              <input type="password" id="memberPassword" name="memberPassword" required
                      oninvalid="this.setCustomValidity('비밀번호를 입력해주세요.')" oninput="this.setCustomValidity('')">
             </div>
           </label>
         </div>
-
         <div id="but">
           <input type="submit" value="로그인" id="signBut">
         </div>
@@ -180,6 +178,7 @@
           <a href="/mbti/singup" id="sginUp"> &nbsp; 회원가입 &nbsp;</a>
           <a href="" id="findIdPw">아이디/비밀번호 찾기 &nbsp;</a>
         </div>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
       </form>
     </div>
   </div>

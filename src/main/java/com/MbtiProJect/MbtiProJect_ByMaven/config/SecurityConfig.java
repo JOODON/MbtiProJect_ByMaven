@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.authorizeRequests()//시큐리티 처리에 HttpServlet을 이용한다는걸 의미함
                 .mvcMatchers("/","/members/**","/item/**","/images/**").permitAll()
                 //모든 사용자가 로그인 없이 경롱입장 가능
-                .mvcMatchers("/admin/**").hasRole("USER")
+                .mvcMatchers("/admin/**").hasRole("ADMIN")
                 //어드민으로 시작하는 경로는 해당개정이 ADMIN ROLE일 경우에만 접근 가능
                 .anyRequest().authenticated();//위와 관련되지 않은 모든것들은 전부다 인증처리!
 
@@ -53,7 +53,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         //AuthenticationManager를 통해서 인증을 이루어짐 그걸 생성 userDetailService를 구현하고있는 객체로
         //MemberService를 지정해줌 암호화도 시켜주기!
         auth.userDetailsService(memberService).passwordEncoder(passwordEncoder());
-    }    @Bean
+    }
+    @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
