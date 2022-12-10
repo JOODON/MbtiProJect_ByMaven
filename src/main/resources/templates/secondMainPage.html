@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="kr" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/41cdbb121d.js" crossorigin="anonymous"></script>
+
+    <style>
+        *{
+            font-family: 'Jua', sans-serif;
+            list-style: none;
+            text-decoration: none;
+            border-collapse: collapse;
+            margin: 0; padding: 0;
+            color: #3a3939;
+        }
+
+        html {font-size: 20px;}
+
+        body {
+            font-size: 1rem;
+            width: 100%;
+            height: 100vh;
+            position: relative;
+        }
+
+        /*커서 영역 기준*/
+        .header_line {
+            width: 100%; height: 5.75rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /*헤더 디자인*/
+        #header {
+            width: 100%; height: 100px;
+            z-index: 2;
+            position: absolute;
+            top: -5.5rem;
+            background: #e9eff6;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: .3s;
+        }
+
+        /*커서 올렸을 때 나타내기*/
+        .header_line:hover > #header {
+            top: 0;
+        }
+
+        /*로고 디자인*/
+        #header #logo {
+            padding: 1rem;
+            margin-left: 3.5rem;
+            cursor: pointer;
+        }
+
+        /*메뉴바(네비바) 디자인*/
+        #header #centerMenu {
+            display: flex;
+            justify-content: space-between;
+            margin-right: 4.5rem;
+        }
+
+        /*nav*/
+        #header #centerMenu li {
+            padding: .4rem;
+            cursor: pointer;
+        }
+
+        /*nav 애니메이션*/
+        #header #centerMenu li > a {
+            transition: all .05s;
+        }
+
+        /*질문 박스*/
+        .main {
+            width: 100%;
+        }
+
+        /*text 라인 없애기*/
+        #content .container input{
+            border : none;
+            outline: none;
+        }
+
+        /*검사 페이지 디자인(바깥 파란색)*/
+        #content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: .25rem .25rem .5rem #a0a6bb;
+            background-color: #e9eff6;
+            border-radius: .5rem;
+            width: 35rem; height: 25rem;
+            margin: 1.5rem auto;
+
+            animation: testcontainer 2s both;
+        }
+
+        @keyframes testcontainer {
+            from {opacity: 0;}
+            to {opacity: 1;}
+
+        }
+
+        /*검사 페이지 디자인(안쪽 흰색)*/
+        .container {
+            background-color: #ffffff;
+            border-radius: .5rem;
+            width: 32.5rem; height: 22.5rem;
+            text-align: center;
+            display: grid;
+            grid-template-rows: 1fr 2fr 1fr;
+        }
+
+        .main .container div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /*이전, 다음 버튼 테이블 크기 조정*/
+        .button_box table td {
+            width: 15rem; height: 5rem;
+        }
+
+        /*이전, 다음 버튼 디자인*/
+        .button_box td a {
+            font-family: 'Jua', sans-serif; font-size: 1.25rem;
+            padding: .75rem 5rem;
+            border: none;
+            background-color: #a0a6bb; color: #fff;
+            box-shadow: .1rem .1rem .25rem #a0a6bb;
+            border-radius: .25rem;
+            transition-duration: .05s;
+            cursor: pointer;
+        }
+
+        .button_box td a:hover{background: #7c8093;}
+
+        .button_box td a:active{
+            margin-left: .075rem;
+            margin-top: .075rem;
+            box-shadow: none;
+        }
+
+        .main .inquiry_box input{
+            font-size: 1rem;
+            width: 100%;
+            text-align: center;
+        }
+
+        /*라디오 버튼 none*/
+        .main .choice_box input[id*="radio"]{
+            display: none;
+        }
+
+        /*ox 폰트 크기*/
+        .main .choice_box button a{
+            font-size: 6rem;
+        }
+
+        /*ox 영역 크기*/
+        .main .choice_box button a {
+            padding: .5rem;
+            margin: 1rem;
+            cursor: pointer;
+        }
+        .main .choice_box button{
+            background-color: white;
+            border: none;
+        }
+        /*ox 커서 이벤트*/
+        .main .choice_box  button a:hover {
+            color: #cb2d2d;
+        }
+
+        /*페이지 좁아졌을 때*/
+        @media screen and (max-width: 38.4rem) {
+            /*네비바 크기*/
+            #header {
+                font-size: .8em;
+            }
+            /*바깥쪽 테두리 크기(파란색)*/
+            #content {
+                width: 22rem;
+            }
+            /*안쪽 테두리 크기(흰색)*/
+            .container {
+                width: 19.5rem;
+            }
+            /*ox 폰트 크기*/
+            .main .choice_box button a{
+                font-size: 5.5rem;
+            }
+            /*이전, 다음 버튼 테이블 크기 조정*/
+            .button_box table td {
+                width: 15rem; height: 5rem;
+            }
+            /*이전, 다음 버튼 디자인*/
+            .button_box td a {
+                padding: .55rem 2.7rem;
+                font-size: 1rem;
+            }
+            /*질문 글자 크기*/
+            .main .inquiry_box input{
+                font-size: .8rem;
+            }
+        }
+    </style>
+
+    <title>Mbti Main</title>
+</head>
+<body>
+<!--    헤더-->
+<div class="header_line">
+    <header id="header">
+        <!--            로고-->
+        <h1 id="logo"><a href="http://localhost:8080/mbti/mainpage">Mbti</a></h1>
+
+        <!--            메뉴-->
+        <nav id="navbar">
+            <ul id="centerMenu">
+                <li><a href="http://localhost:8080/mbti/mainpage">홈</a></li>
+                <li><a href="http://localhost:8080/mbti/Introduction">소개</a></li>
+                <li><a href="/mbti/login" th:if="${userSession==null}">로그인</a></li>
+                <li><a th:if="${userSession!=null}" th:href ="@{/mbti/logout/pro}">로그아웃</a></li>
+            </ul>
+        </nav>
+    </header>
+</div>
+
+<!--메인-->
+<section class="main">
+    <!--          두번째 페이지(검사 질문 페이지, 메인)-->
+    <section id="content">
+        <form action="" method="get">
+            <!--//이부분 -->
+            <section class="container" th:each="mbtilist:${list}">
+                <!--                    질문-->
+
+                <div class="inquiry_box">
+                    <input name="inquiry" type="text" th:value="${mbtilist.mbtitext}" onfocus="this.blur(); ">
+                </div>
+                <!--                    ox 선택-->
+                <div class="choice_box">
+                    <label><button type="submit" name=value><a th:href ="@{/mbti/secondmainpage(page = ${mbtilist.id},value=1)}" >O</a></button></label>
+                    <label><button type="submit" name=value><a th:href ="@{/mbti/secondmainpage(page = ${mbtilist.id},value=2)}" >X</a></button></label>
+                </div>
+                <!--                    이전, 다음 버튼-->
+                <div class="button_box">
+                    <table>
+                        <tr>
+                            <td><a th:if="${mbtilist.id-2!=0}" th:href ="@{/mbti/secondmainpage(page = ${mbtilist.id-2})}">이전</a></td>
+                            <td><a th:if="${mbtilist.id!=22}" th:href ="@{/mbti/secondmainpage(page = ${mbtilist.id})}">다음</a></td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+        </form>
+    </section>
+</section>
+
+<footer class="information">
+
+</footer>
+</body>
+</html>

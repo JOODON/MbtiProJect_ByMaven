@@ -50,13 +50,15 @@ public class MemberController {
 
     @GetMapping(value = "/login")
     public String loginMember(){
+
         return "member/loginForm";
+
     }
     @GetMapping(value = "/login/error")
     public String loginError(Model model){
 
         model.addAttribute("message", "아이디 또는 비밀번호를 확인해주세요");
-        model.addAttribute("searchUrl", "members/login");
+        model.addAttribute("searchUrl", "/members/login");
 
         return "message";
     }

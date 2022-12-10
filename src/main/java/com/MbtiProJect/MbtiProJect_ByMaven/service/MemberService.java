@@ -32,15 +32,12 @@ public class MemberService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Member member=memberRepository.findByEmail(email);
-        if(member==null){
+        Member member= memberRepository.findByEmail(email);
+        if (member==null){
             throw new UsernameNotFoundException(email);
         }
         return User.builder()
-                //User 객체 를 반환해주고 생성자의 회원의 이메일 비밀번호 role을 넘겨줍니다.
-                .username(member.getEmail())
-                .password(member.getMemberPassword())
-                .roles(member.getRole().toString())
-                .build();
+                .username(member.getEmail()).password(member.getMemberPassword())
+                .roles(member.getRole().toString()).build();
     }
 }

@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception{
         http.formLogin().loginPage("/members/login")//로그인 페이지 URL을 설정합니다.
                 .defaultSuccessUrl("/")//로그인 성공 시 이동할 URL을 설정
-                .usernameParameter("email")//로그인 시 사용할 파라미터 이름으로 email 을 지정합니다.
+                .usernameParameter("email").passwordParameter("memberPassword")//로그인 시 사용할 파라미터 이름으로 email 을 지정합니다.
                 .failureUrl("/members/login/error")//로그인 실패시 이동할 URL을 설정
                 .and().logout().
                 logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))//로그아웃 URL 을 설정
@@ -48,14 +48,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         web.ignoring().antMatchers("/css/**","/js/**","/img/**");
         //static디렉터리 하위파일은 인증을 무시하도록 설정함
     }
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
         //AuthenticationManager를 통해서 인증을 이루어짐 그걸 생성 userDetailService를 구현하고있는 객체로
         //MemberService를 지정해줌 암호화도 시켜주기!
         auth.userDetailsService(memberService).passwordEncoder(passwordEncoder());
-    }
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
     }
 }

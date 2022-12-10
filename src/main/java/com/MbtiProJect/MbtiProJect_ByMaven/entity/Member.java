@@ -36,6 +36,7 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+
     public static Member createMember(MemberFromDto memberFromDto, PasswordEncoder passwordEncoder){
         Member member=new Member();
         member.setName(memberFromDto.getName());
@@ -43,7 +44,12 @@ public class Member {
         member.setGender(memberFromDto.getGender());
         member.setPhoneNumber(memberFromDto.getPhoneNumber());
 
+        System.out.println(memberFromDto.getMemberPassword());
+
         String password=passwordEncoder.encode(memberFromDto.getMemberPassword());
+
+        System.out.println(password);
+
         //이쪽으로 넘겨서 비밀번호를 암호화 시켜주는 부분!
         member.setMemberPassword(password);
         member.setRole(Role.ADMIN);
