@@ -7,15 +7,17 @@ import javax.persistence.*;
 
 @Entity
 @Getter @Setter
-@Table(name = "mbtList")
-public class MbtiEntity {
+@Table(name = "mbtiquestionentity")
+public class MbtiQuestionEntity {
     @Id
     @Column(name = "mbti_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "questiontext")
     private String questionText;
 
+    @Column(name = "value")
     private String value;
 
 }
