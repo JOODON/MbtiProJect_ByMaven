@@ -31,8 +31,9 @@ public class Member {
     private String phoneNumber;
 
     @Column(name = "gender")
-    private String Gender;
+    private String gender;
 
+    private String myMbti;
     @Enumerated(EnumType.STRING)
     private Role role;
 
