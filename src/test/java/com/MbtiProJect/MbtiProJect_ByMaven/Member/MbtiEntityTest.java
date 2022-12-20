@@ -1,6 +1,5 @@
 package com.MbtiProJect.MbtiProJect_ByMaven.Member;
 
-import com.MbtiProJect.MbtiProJect_ByMaven.entity.MbtiEntity;
 import com.MbtiProJect.MbtiProJect_ByMaven.service.MbtiService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +25,11 @@ public class MbtiEntityTest {
     MbtiService mbtiService;
 
     @Test
-    public void secondPage(Model model, @PageableDefault(page = 1,sort = "id",size = 1,direction = Sort.Direction.ASC)
-    Pageable pageable, String result){
-
+    public void secondPage(@PageableDefault (page = 1,sort = "id",size = 1,direction = Sort.Direction.ASC)
+                               Pageable pageable,String result){
         ArrayList<String> ValueList=new ArrayList<>();
         //MBTI 결과값 조회하려고 리스트 만들어줘서 결과값을 넣어줌
 
-        model.addAttribute("list",mbtiService.mbtiList(pageable));
-
+        System.out.println(mbtiService.mbtiList(pageable));
     }
 }

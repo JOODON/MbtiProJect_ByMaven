@@ -248,19 +248,19 @@
                 <!--                    질문-->
 
                 <div class="inquiry_box">
-                    <input name="inquiry" type="text" th:value="${mbtiquestionentity.questiontext}" onfocus="this.blur(); ">
+                    <input name="inquiry" type="text" th:value="${mbtiquestionentity.questionText}" onfocus="this.blur(); ">
                 </div>
                 <!--                    ox 선택-->
                 <div class="choice_box">
-                    <label><button type="submit" name=result><a th:href ="@{/secondmainpage(page = ${mbtiquestionentity.mbti_id},result=1)}" >O</a></button></label>
-                    <label><button type="submit" name=result><a th:href ="@{/secondmainpage(page = ${mbtiquestionentity.mbti_id},result=2)}" >X</a></button></label>
+                    <label><button type="submit" name=result><a th:href ="@{/secondPage(page = ${mbtiquestionentity.id},result=1)}" >O</a></button></label>
+                    <label><button type="submit" name=result><a th:href ="@{/secondPage(page = ${mbtiquestionentity.id},result=2)}" >X</a></button></label>
                 </div>
                 <!--                    이전, 다음 버튼-->
                 <div class="button_box">
                     <table>
                         <tr>
-                            <td><a th:if="${mbtiquestionentity.mbti_id-2!=0}" th:href ="@{/secondmainpage(page = ${mbtiquestionentity.mbti_id-2})}">이전</a></td>
-                            <td><a th:if="${mbtiquestionentity.mbti_id!=22}" th:href ="@{/secondmainpage(page = ${mbtiquestionentity.mbti_id})}">다음</a></td>
+                            <td><a th:if="${mbtiquestionentity.id-2!=0}" th:href ="@{/secondPage(page = ${mbtiquestionentity.id-2})}">이전</a></td>
+                            <td><a th:if="${mbtiquestionentity.id!=22}" th:href ="@{/secondPage(page = ${mbtiquestionentity.id})}">다음</a></td>
                         </tr>
                     </table>
                 </div>

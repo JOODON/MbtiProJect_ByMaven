@@ -1,5 +1,8 @@
 package com.MbtiProJect.MbtiProJect_ByMaven.controller;
 
+import com.MbtiProJect.MbtiProJect_ByMaven.entity.MbtiQuestionEntity;
+import com.MbtiProJect.MbtiProJect_ByMaven.repository.MbtiQuestionEntityRepository;
+import com.MbtiProJect.MbtiProJect_ByMaven.service.MbtiQustionServcie;
 import com.MbtiProJect.MbtiProJect_ByMaven.service.MbtiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,9 @@ import java.util.ArrayList;
 public class MainController {
     @Autowired
     MbtiService mbtiService;
+    @Autowired
+    MbtiQuestionEntityRepository mbtiQuestionEntityRepository;
+
 
     @GetMapping(value = "/")
     public String main(){
@@ -26,7 +32,9 @@ public class MainController {
     @GetMapping(value = "/secondPage")
     public String secondPage(Model model, @PageableDefault (page = 1,sort = "id",size = 1,direction = Sort.Direction.ASC)
     Pageable pageable,String result){
-
+        MbtiQustionServcie mbtiQustionServcie=new MbtiQustionServcie();
+        MbtiQuestionEntity mbtiQuestion= mbtiQustionServcie.crateQuestion();
+        mbtiQuestionEntityRepository.save(mbtiQuestion);
         ArrayList<String> valueList=new ArrayList<>();
         //MBTI 결과값 조회하려고 리스트 만들어줘서 결과값을 넣어줌
 
@@ -34,4 +42,6 @@ public class MainController {
 
         return "secondMainPage";
     }
+
+
 }
