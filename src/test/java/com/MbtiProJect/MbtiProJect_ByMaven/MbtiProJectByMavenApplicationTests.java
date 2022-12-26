@@ -8,6 +8,7 @@ class MbtiProJectByMavenApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }

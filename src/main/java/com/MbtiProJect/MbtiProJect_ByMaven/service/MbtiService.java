@@ -2,6 +2,7 @@ package com.MbtiProJect.MbtiProJect_ByMaven.service;
 
 
 import com.MbtiProJect.MbtiProJect_ByMaven.entity.MbtiQuestionEntity;
+import com.MbtiProJect.MbtiProJect_ByMaven.entity.MbtiValueEntity;
 import com.MbtiProJect.MbtiProJect_ByMaven.repository.MbtiQuestionEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,5 +16,8 @@ public class MbtiService {
 
     public Page<MbtiQuestionEntity> mbtiList(Pageable pageable){
         return mbtiQuestionEntityRepository.findAll(pageable);
+    }
+    public MbtiQuestionEntity mbtiView(Long id){
+        return mbtiQuestionEntityRepository.findById(id).get();
     }
 }
