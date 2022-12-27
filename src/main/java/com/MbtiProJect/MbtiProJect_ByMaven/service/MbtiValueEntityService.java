@@ -15,4 +15,7 @@ public class MbtiValueEntityService {
     public void mbtiResultAdd(MbtiValueEntity mbtiValue){
         mbtiValueRepository.save(mbtiValue);
     }
+    public MbtiValueEntity mbtiValueView(Long id){
+        return mbtiValueRepository.findById(id).get();
+    }
 }

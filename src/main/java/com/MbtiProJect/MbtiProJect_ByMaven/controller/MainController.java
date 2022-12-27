@@ -45,43 +45,36 @@ public class MainController {
         //페이지 번호로 배열 처리
         MbtiQuestionEntity mbtiQuestionId=mbtiService.mbtiView((long) pageable.getPageNumber());
         //페이지 넘버랑 롱이랑 매치시켜줌
-        MbtiValueEntity mbtiValue=new MbtiValueEntity();
 
+        MbtiValueEntity mbtiValue=mbtiValueEntityService.mbtiValueView((long) pageable.getPageNumber());
+        //Value 테이블이랑 View부분이랑 매치해서 결과값 내기
         if (result==null){
             result= String.valueOf(1);
         }
         else if (result.equals("1")&&mbtiQuestionId.getId()<=6){
-            mbtiValue.setId((long) pageNum);
             mbtiValue.setMbtiKey("E");
         }
         else if(result.equals("2")&&mbtiQuestionId.getId()<=6){
-            mbtiValue.setId(mbtiValue.getId()-2);
             mbtiValue.setMbtiKey("I");
         }
         //S랑 N값 처리
         else if (result.equals("1")&&mbtiQuestionId.getId()<=11&&mbtiQuestionId.getId()>6){
-            mbtiValue.setId(mbtiValue.getId()-2);
             mbtiValue.setMbtiKey("N");
         }
         else if(result.equals("2")&&mbtiQuestionId.getId()<=11&&mbtiQuestionId.getId()>6){
-            mbtiValue.setId(mbtiValue.getId()-2);
             mbtiValue.setMbtiKey("S");
         }
         //T랑 F값 처리
         else if (result.equals("1")&&mbtiQuestionId.getId()<=16&&mbtiQuestionId.getId()>11){
-            mbtiValue.setId(mbtiValue.getId()-2);
             mbtiValue.setMbtiKey("F");
         }
         else if(result.equals("2")&&mbtiQuestionId.getId()<=16&&mbtiQuestionId.getId()>11){
-            mbtiValue.setId(mbtiValue.getId()-2);
             mbtiValue.setMbtiKey("T");
         }
         else if (result.equals("1")&&mbtiQuestionId.getId()<=21&&mbtiQuestionId.getId()>16){
-            mbtiValue.setId(mbtiValue.getId()-2);
             mbtiValue.setMbtiKey("J");
         }
         else if(result.equals("2")&&mbtiQuestionId.getId()<=21 && mbtiQuestionId.getId()>16){
-            mbtiValue.setId(mbtiValue.getId()-2);
             mbtiValue.setMbtiKey("P");
         }
         else{
@@ -91,6 +84,7 @@ public class MainController {
         mbtiValueEntityService.mbtiResultAdd(mbtiValue);
         return "secondMainPage";
     }
-
-
+    public String mbtiResut(){
+        return "";
+    }
 }
