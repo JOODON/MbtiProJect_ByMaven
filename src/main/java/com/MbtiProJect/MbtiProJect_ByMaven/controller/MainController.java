@@ -78,13 +78,51 @@ public class MainController {
             mbtiValue.setMbtiKey("P");
         }
         else{
-            return "redirect:/mbti/resultpage";
+            return "redirect:/resultPage";
         }
 
         mbtiValueEntityService.mbtiResultAdd(mbtiValue);
-        return "secondMainPage";
+        return "mainPage/secondMainPage";
     }
-    public String mbtiResut(){
-        return "";
+    @GetMapping(value = "resultPage")
+    public String mbtiResult(Model model){
+        String mbtiResulArray[]=new String[4];
+
+        Long eNum=mbtiValueEntityService.mbtiResult("E");
+        Long iNum=mbtiValueEntityService.mbtiResult("I");
+        if (eNum >iNum) {
+            mbtiResulArray[0] = "E";
+        }
+        else {
+            mbtiResulArray[0] = "I";
+        }
+        Long nNum=mbtiValueEntityService.mbtiResult("N");
+        Long sNum=mbtiValueEntityService.mbtiResult("S");
+        if (nNum>sNum) {
+            mbtiResulArray[1] = "N";
+        }
+        else {
+            mbtiResulArray[1] = "S";
+        }
+        Long tNum=mbtiValueEntityService.mbtiResult("T");
+        Long fNum=mbtiValueEntityService.mbtiResult("F");
+        if (tNum >fNum) {
+            mbtiResulArray[2] = "T";
+        }
+        else {
+            mbtiResulArray[2] = "F";
+        }
+        Long pNum=mbtiValueEntityService.mbtiResult("P");
+        Long jNum=mbtiValueEntityService.mbtiResult("J");
+        if (pNum >jNum) {
+            mbtiResulArray[3] = "P";
+        }
+        else {
+            mbtiResulArray[3] = "J";
+        }
+        String mbtiValue=mbtiResulArray[0]+mbtiResulArray[1]+mbtiResulArray[2]+mbtiResulArray[3];
+        model.addAttribute("mbtivalue",mbtiValue);
+        return "mainPage/resultPage";
+
     }
 }

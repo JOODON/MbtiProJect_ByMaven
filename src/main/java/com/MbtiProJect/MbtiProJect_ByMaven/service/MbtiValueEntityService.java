@@ -18,4 +18,7 @@ public class MbtiValueEntityService {
     public MbtiValueEntity mbtiValueView(Long id){
         return mbtiValueRepository.findById(id).get();
     }
+    public Long mbtiResult(String keyWord){
+        return mbtiValueRepository.countByMbtiKey(keyWord);
+    }
 }
