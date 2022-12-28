@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="kr" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/41cdbb121d.js" crossorigin="anonymous"></script>
+
+    <style>
+        *{
+            font-family: 'Jua', sans-serif;
+            list-style: none;
+            text-decoration: none;
+            border-collapse: collapse;
+            margin: 0; padding: 0;
+            color: #3a3939;
+        }
+        html {font-size: 20px;}
+
+        body {
+            font-size: 1rem;
+            width: 100%;
+            height: 100vh;
+            position: relative;
+        }
+
+        /*커서 영역 기준*/
+        .header_line {
+            width: 100%; height: 5.75rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /*헤더 디자인*/
+        #header {
+            width: 100%; height: 5rem;
+            z-index: 2;
+            position: absolute;
+            top: -5.5rem;
+            background: #e9eff6;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: .3s;
+        }
+
+        /*커서 올렸을 때 나타내기*/
+        .header_line:hover > #header {
+            top: 0;
+        }
+
+        /*로고 디자인*/
+        #header #logo {
+            padding: 1rem;
+            margin-left: 3.5rem;
+            cursor: pointer;
+        }
+
+        /*메뉴바(네비바) 디자인*/
+        #header #centerMenu {
+            display: flex;
+            justify-content: space-between;
+            margin-right: 4.5rem
+        }
+
+        /*nav 메뉴들*/
+        #header #centerMenu li {
+            padding: .4rem;
+            cursor: pointer;
+        }
+
+        /*nav 애니메이션*/
+        #header #centerMenu li > a {
+            transition: all .05s;
+        }
+
+        /*메인*/
+        .main {
+            position: relative;
+            width: 100%;
+        }
+
+        /*파란 박스 디자인*/
+        .main #out_line {
+            box-shadow: 5px 5px 10px #a0a6bb;
+            background-color: #e9eff6;
+            border-radius: 10px;
+            width: 35rem; height: 25rem;
+            margin: 1rem auto;
+            padding: .5rem;
+        }
+
+        /*안쪽 박스 디자인*/
+        .main #in_line {
+            background-color: #ffffff;
+            border-radius: 10px;
+            width: 95%; height: 84%;
+            margin: 0 auto;
+        }
+
+        /*제목*/
+        .main #out_line h2 {
+            text-align: center;
+            width: 100%;
+            margin: .5rem;
+        }
+
+        /*컨텐츠 박스*/
+        .main #information_box1 {
+            padding: .75rem;
+        }
+
+        /*컨텐츠 라인*/
+        .main #information_box1 p {
+            margin-bottom: .5rem;
+        }
+
+        /*행 제목*/
+        .main #information_box1 span {
+            background: rgba(231, 234, 238, 0.75);
+            border-radius: 5px;
+            padding: .35rem; margin-right: .75rem;
+            width: 3.5rem;
+            display: inline-block;
+            text-align: center;
+        }
+
+        /*수정 버튼 박스*/
+        .main #information_box2 {
+            margin: 4.5rem 0 0 23rem;
+        }
+
+        /*수정 버튼 디자인*/
+        #information_box2 #revise {
+            background-color: #a0a6bb;
+            color: #fff;
+            padding: .5rem 1rem;
+            box-shadow: 2px 2px 5px #a0a6bb;
+            border-radius: 5px;
+            transition-duration: .05s;
+            cursor: pointer;
+        }
+
+        /*수정 버튼 호버*/
+        #information_box2 #revise:hover {
+            background: #7a8094;
+        }
+
+        /*수정 버튼 엑티브*/
+        #information_box2 #revise:active{
+            margin-left: .075rem;
+            margin-top: .075rem;
+            box-shadow: none;
+        }
+
+        /*팝업*/
+        #popUp {
+            background: rgba(0, 0, 0, .4);
+            position: absolute;
+            width: 100%; height: 100%;
+            left: 0; top: 0;
+            justify-content: center;
+            align-items: center;
+            display: none;
+        }
+
+        /*팝업창*/
+        #popUp #pwCheck {
+            background: white;
+            width: 12.5rem;
+            height: 9rem;
+            padding: .5rem;
+            border: 10px solid #a0a6bb;
+            border-radius: 20px;
+        }
+
+        #popUp #pwCheck span {
+            margin-left: 3.5rem;
+        }
+
+        /* x버튼 디자인*/
+        #popUp #cancel {
+            background: white;
+            border: 2px solid #a0a6bb;
+            border-radius:50px;
+            padding: .2rem .5rem;
+            float: right;
+            cursor: pointer;
+        }
+
+        #popUp p {
+            margin-top: 2rem;
+        }
+        #popUp #pwCheck input[type=password] {
+            border: 1px solid #a0a6bb;
+            border-radius: 10px;
+            padding: .25rem;
+            width: 95%; height: 30px;
+        }
+        /*버튼 디자인*/
+        #popUp #pwCheck input[type=submit] {
+            width: 100%;
+            font-size: 1rem;
+            border: none;
+            background-color: #a0a6bb; color: #fff;
+            padding: .4rem 1rem;
+            margin-top: 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        /*버튼 호버*/
+        #popUp #pwCheck input[type=submit]:hover {
+            background: #7a8094;
+        }
+
+        @media screen and (max-width: 760px){
+            /*파란 박스 디자인*/
+            .main #out_line {
+                width: 20rem;
+            }
+            /*수정 버튼 박스*/
+            .main #information_box2 {
+                margin: 4.5rem 0 0 9rem;
+            }
+        }
+
+
+    </style>
+
+    <title>Mbti MyPage</title>
+</head>
+<body>
+<!--    헤더-->
+<div class="header_line">
+    <header id="header">
+        <!--            로고-->
+        <h1 id="logo"><a href="http://localhost:8080/mbti/mainpage">Mbti</a></h1>
+        <!--            메뉴-->
+        <nav id="navbar">
+            <ul id="centerMenu">
+                <li><a href="http://localhost:8080/mbti/mainpage">홈</a></li>
+                <li><a href="http://localhost:8080/mbti/Introduction">소개</a></li>
+                <li><a href="/mbti/login" th:if="${userSession==null}">로그인</a></li>
+                <li><a th:if="${userSession!=null}" th:href ="@{/mbti/logout/pro}">로그아웃</a></li>
+            </ul>
+        </nav>
+    </header>
+</div>
+
+<!--메인-->
+<section class="main">
+    <!--바깥 상자 (파란색)-->
+    <section id="out_line">
+        <h2>My Page</h2>
+        <!--        안쪽 상자 (흰색)-->
+        <section id="in_line">
+            <!--            회원 정보-->
+            <div id="information_box1" >
+                <p><span>성격유형</span><a th:text="${userMbti}">ENFP</a></p>
+                <p><span>이름</span><a th:text="${userName}">ㅇㅇㅇ</a></p>
+                <p><span>이메일</span><a th:text="${userEmail}">xxx@xxxx.xx</a></p>
+                <p><span>전화번호</span><a th:text="${userPhoneNumber}">010-0000-0000</a></p>
+                <p><span>유저권한</span><a th:text="${userRole}">Admin/User</a></p>
+            </div>
+            <div id="information_box2">
+                <a id="revise" onclick="popShow();">정보 수정하러 가기</a>
+            </div>
+        </section>
+    </section>
+
+</section>
+
+<section id="popUp">
+    <form action="" method="post">
+        <div id="pwCheck">
+            <span>비밀번호 확인</span><a id="cancel" onclick="cancel();">X</a>
+            <p><input type="password" name="pw" required placeholder="비밀번호"></p>
+            <input type="submit" value="확인">
+        </div>
+    </form>
+</section>
+
+<script>
+    function popShow() {
+        document.getElementById("popUp").style.display = "flex";
+    }
+
+    function cancel() {
+        document.getElementById("popUp").style.display = "none";
+    }
+</script>
+</body>
+</html>

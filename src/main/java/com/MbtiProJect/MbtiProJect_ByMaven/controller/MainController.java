@@ -1,11 +1,13 @@
 package com.MbtiProJect.MbtiProJect_ByMaven.controller;
 
+import com.MbtiProJect.MbtiProJect_ByMaven.config.SecurityConfig;
 import com.MbtiProJect.MbtiProJect_ByMaven.entity.MbtiQuestionEntity;
 import com.MbtiProJect.MbtiProJect_ByMaven.entity.MbtiValueEntity;
 import com.MbtiProJect.MbtiProJect_ByMaven.repository.MbtiQuestionEntityRepository;
 import com.MbtiProJect.MbtiProJect_ByMaven.repository.MbtiValueRepository;
 import com.MbtiProJect.MbtiProJect_ByMaven.service.MbtiService;
 import com.MbtiProJect.MbtiProJect_ByMaven.service.MbtiValueEntityService;
+import com.MbtiProJect.MbtiProJect_ByMaven.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +19,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.ArrayList;
 
 @Controller
@@ -31,8 +35,11 @@ public class MainController {
 
     @Autowired
     MbtiValueRepository mbtiValueRepository;
+    @Autowired
+    MemberService memberService;
     @GetMapping(value = "/")
     public String main(){
+        //이런식으로 세션값 가져오기
         return "main";
     }
     @GetMapping(value = "/secondPage")
@@ -123,6 +130,6 @@ public class MainController {
         String mbtiValue=mbtiResulArray[0]+mbtiResulArray[1]+mbtiResulArray[2]+mbtiResulArray[3];
         model.addAttribute("mbtivalue",mbtiValue);
         return "mainPage/resultPage";
-
     }
+
 }

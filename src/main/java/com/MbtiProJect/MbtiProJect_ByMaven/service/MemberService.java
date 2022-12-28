@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional//로직을 처리하다가 오류가 날시 그 전으로 롤백시켜줌
 @RequiredArgsConstructor //Autowired대신 이걸로 빈 주입을 해줌
@@ -29,7 +31,9 @@ public class MemberService implements UserDetailsService {
             throw new IllegalStateException("이미 가입된 회원입니다.");
         }
     }
-
+    public Member findByUser(String userId){
+        return memberRepository.findByEmail(userId);
+    }
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Member member= memberRepository.findByEmail(email);
@@ -40,4 +44,5 @@ public class MemberService implements UserDetailsService {
                 .username(member.getEmail()).password(member.getMemberPassword())
                 .roles(member.getRole().toString()).build();
     }
+
 }

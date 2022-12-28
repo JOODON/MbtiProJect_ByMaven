@@ -1,6 +1,7 @@
 package com.MbtiProJect.MbtiProJect_ByMaven.config;
 
 
+import com.MbtiProJect.MbtiProJect_ByMaven.entity.Member;
 import com.MbtiProJect.MbtiProJect_ByMaven.repository.MemberRepository;
 import com.MbtiProJect.MbtiProJect_ByMaven.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.*;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import java.lang.constant.Constable;
 
 @Configuration
 @EnableWebSecurity
@@ -52,11 +56,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
+    public Constable securitySession(){
+        Object principal= SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Member member=(Member) principal;
 
+        String userName=((Member) principal).getEmail();
+        String userPassword=((Member) principal).getMemberPassword();
+
+        return userName;
+    }
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
         //AuthenticationManager를 통해서 인증을 이루어짐 그걸 생성 userDetailService를 구현하고있는 객체로
         //MemberService를 지정해줌 암호화도 시켜주기!
         auth.userDetailsService(memberService).passwordEncoder(passwordEncoder());
     }
+
 }
