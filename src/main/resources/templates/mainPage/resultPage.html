@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="kr" xmlns:th="http://www.thymleaf.org">
+<html lang="kr" xmlns:th="http://www.thymleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -181,7 +181,7 @@
             <p>당신의 <span>성격유형</span>은</p>
             <p><a th:text="${mbtivalue}">INFP</a>입니다.</p>
         </div>
-        <a href="http://localhost:8080/members/new">회원가입하고 결과 저장하기</a>
+        <a href="http://localhost:8080/myPage">마이페이지로 이동해서 정보보기</a>
     </section>
 </section>
 

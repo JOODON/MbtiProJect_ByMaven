@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="kr" xmlns:th="http://www.thymleaf.org">
+<html lang="kr" xmlns:th="http://www.thymleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -241,13 +241,14 @@
     <header id="header">
         <!--            로고-->
         <h1 id="logo"><a href="http://localhost:8080/mbti/mainpage">Mbti</a></h1>
+
         <!--            메뉴-->
         <nav id="navbar">
             <ul id="centerMenu">
                 <li><a href="http://localhost:8080/mbti/mainpage">홈</a></li>
                 <li><a href="http://localhost:8080/mbti/Introduction">소개</a></li>
-                <li><a href="/mbti/login" th:if="${userSession==null}">로그인</a></li>
-                <li><a th:if="${userSession!=null}" th:href ="@{/mbti/logout/pro}">로그아웃</a></li>
+                <li><a href="/members/login" sec:authorize="isAnonymous()">로그인</a></li>
+                <li><a href="/members/logout" sec:authorize="isAuthenticated()">로그아웃</a></li>
             </ul>
         </nav>
     </header>
