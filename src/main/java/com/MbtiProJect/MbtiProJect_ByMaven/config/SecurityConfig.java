@@ -47,11 +47,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .authenticationEntryPoint(new CustomAuthenticationEntryPoint());
         //인증되지 않은 사용자가 리소스에 접근하였을때 수행되는 핸들러를 등록함
     }
-    @Override
-    public void configure(WebSecurity web) throws Exception{
-        web.ignoring().antMatchers("/css/**","/js/**","/img/**");
-        //static디렉터리 하위파일은 인증을 무시하도록 설정함
-    }
+        @Override
+        public void configure(WebSecurity web) throws Exception{
+            web.ignoring().antMatchers("/css/**","/js/**","/img/**");
+            //static디렉터리 하위파일은 인증을 무시하도록 설정함
+        }
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
