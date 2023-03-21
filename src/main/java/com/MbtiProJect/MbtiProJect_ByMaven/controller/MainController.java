@@ -17,6 +17,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
@@ -97,6 +98,62 @@ public class MainController {
             return "mainPage/secondMainPage";
         }
     }
+    @PostMapping(value = "/secondPage")
+    public String secondPostPage(Model model, @PageableDefault (page = 1,sort = "id",size = 1,direction = Sort.Direction.ASC)
+    Pageable pageable,String result,Principal principal){
+        if (principal == null){
+            model.addAttribute("message","로그인 후 검사를 진행해 주세요");
+            model.addAttribute("searchUrl", "/members/new");
+            return "message";
+        }
+        else {
+            ArrayList<String> valueList=new ArrayList<>();
+            //MBTI 결과값 조회하려고 리스트 만들어줘서 결과값을 넣어줌
+            model.addAttribute("list",mbtiService.mbtiList(pageable));
+            int pageNum= pageable.getPageNumber();
+            //페이지 번호로 배열 처리
+            MbtiQuestionEntity mbtiQuestionId=mbtiService.mbtiView((long) pageable.getPageNumber());
+            //페이지 넘버랑 롱이랑 매치시켜줌
+
+            MbtiValueEntity mbtiValue=mbtiValueEntityService.mbtiValueView((long) pageable.getPageNumber());
+            //Value 테이블이랑 View부분이랑 매치해서 결과값 내기
+            if (result==null){
+                result= String.valueOf(1);
+            }
+            else if (result.equals("1")&&mbtiQuestionId.getId()<=6){
+                mbtiValue.setMbtiKey("E");
+            }
+            else if(result.equals("2")&&mbtiQuestionId.getId()<=6){
+                mbtiValue.setMbtiKey("I");
+            }
+            //S랑 N값 처리
+            else if (result.equals("1")&&mbtiQuestionId.getId()<=11&&mbtiQuestionId.getId()>6){
+                mbtiValue.setMbtiKey("N");
+            }
+            else if(result.equals("2")&&mbtiQuestionId.getId()<=11&&mbtiQuestionId.getId()>6){
+                mbtiValue.setMbtiKey("S");
+            }
+            //T랑 F값 처리
+            else if (result.equals("1")&&mbtiQuestionId.getId()<=16&&mbtiQuestionId.getId()>11){
+                mbtiValue.setMbtiKey("F");
+            }
+            else if(result.equals("2")&&mbtiQuestionId.getId()<=16&&mbtiQuestionId.getId()>11){
+                mbtiValue.setMbtiKey("T");
+            }
+            else if (result.equals("1")&&mbtiQuestionId.getId()<=21&&mbtiQuestionId.getId()>16){
+                mbtiValue.setMbtiKey("J");
+            }
+            else if(result.equals("2")&&mbtiQuestionId.getId()<=21 && mbtiQuestionId.getId()>16){
+                mbtiValue.setMbtiKey("P");
+            }
+            else{
+                return "redirect:/resultPage";
+            }
+            mbtiValueEntityService.mbtiResultAdd(mbtiValue);
+            return "mainPage/secondMainPage";
+        }
+    }
+
     @GetMapping(value = "resultPage")
     public String mbtiResult(Model model){
         String mbtiResulArray[]=new String[4];

@@ -22,5 +22,4 @@ public class MemberFromDto {
 
     private String Gender;
 
-
 }
